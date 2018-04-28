@@ -76,7 +76,7 @@ public class TretoAktiviti extends AppCompatActivity {
             adapter = new IminjaAdapter(this,model2, new OnRow() {
                 @Override
                 public void onRowClick(Vraboteni vraboteni, int position) {
-                    tekst.setText(R.string.tekst_na_angliski+"/n"+vraboteni.getName());
+                    tekst.setText(R.string.tekst_na_angliski+ "\n" +vraboteni.getName()+position);
                 }
             });
             rv2.setLayoutManager(new LinearLayoutManager(this));
@@ -110,6 +110,11 @@ public class TretoAktiviti extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
+    @OnClick(R.id.kopce_izbrisi_vraboten)
+    public void onKlik6(View view){
+        adapter.clear();
+        adapter.notifyDataSetChanged();
+    }
     public void popUpEditText() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("DODADI VRABOTEN");

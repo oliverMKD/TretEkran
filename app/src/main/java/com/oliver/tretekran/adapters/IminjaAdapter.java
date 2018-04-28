@@ -63,6 +63,18 @@ public class IminjaAdapter extends RecyclerView.Adapter<IminjaAdapter.ViewHolder
                 onRowClickListener.onRowClick(people,position);
             }
         });
+//        holder.vrabotenite.setOnLongClickListener(new View.OnLongClickListener() {
+//            @Override
+//            public boolean onLongClick(View v) {
+//                peopleList.remove(peopleList.get(position));
+//                notifyDataSetChanged();
+//                return true;
+//            }
+//        });
+//
+//        public void RemoveVraboteni;{
+//            peopleList.remove(peopleList.get(position));
+//        }
     }
 
     @Override
@@ -79,9 +91,29 @@ public class IminjaAdapter extends RecyclerView.Adapter<IminjaAdapter.ViewHolder
         @BindView(R.id.iminja)
         TextView vrabotenite;
 
-        public ViewHolder(View itemView) {
+        public ViewHolder(final View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    peopleList.remove(peopleList.get(getAdapterPosition()));
+                    notifyItemRemoved(getAdapterPosition());
+                    return true;
+                }
+            });
+//
         }
     }
+    public void clear() {
+        final int size = peopleList.size();
+        if (size > 0) {
+            for (int i = 0; i < size; i++) {
+                peopleList.remove(0);
+            }
+
+            notifyItemRangeRemoved(0, size);
+        }
+    }
+
 }
