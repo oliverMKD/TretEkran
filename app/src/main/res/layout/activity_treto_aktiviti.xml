@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TretoAktiviti">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/MyRV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="horizontal"
+        android:orientation="horizontal"
+        android:scrollbarSize="3dp"
+        app:reverseLayout="true"
+        />
+    <RelativeLayout
+        android:id="@+id/relativ_levo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/MyRV">
+
+        <Button
+            android:id="@+id/kopce_svedski"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:text="SW"
+            />
+        <Button
+            android:id="@+id/kopce_engleski"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="EN"
+            android:layout_below="@+id/kopce_svedski"
+            />
+        <TextView
+            android:id="@+id/poraka"
+            android:layout_width="600dp"
+            android:layout_height="200dp"
+            android:layout_marginLeft="50dp"
+            android:layout_toRightOf="@+id/kopce_svedski"
+            android:layout_marginTop="100dp"
+            />
+        <EditText
+            android:id="@+id/poraka_edit"
+            android:layout_width="600dp"
+            android:layout_height="200dp"
+            android:layout_marginLeft="50dp"
+            android:layout_toRightOf="@+id/kopce_svedski"
+            android:layout_marginTop="100dp"
+           />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativ_desno"
+        android:layout_below="@+id/MyRV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/relativ_levo">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/MyRV2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical"
+            android:scrollbarSize="3dp"
+            android:scrollbarStyle="outsideOverlay"/>
+
+    </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_below="@+id/relativ_levo"
+            android:id="@+id/relativ_dole"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/kopce_nazad"
+            android:text="back"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/kopce_prati"
+                android:text="prati"
+                android:layout_centerInParent="true"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/kopce_edit"
+                android:text="edit"
+                android:layout_toRightOf="@+id/kopce_prati"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/kopce_dodaj_vraboten"
+                android:text="plus"
+                android:layout_toRightOf="@+id/kopce_edit"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/kopce_izbrisi_vraboten"
+                android:text="minus"
+                android:layout_below="@+id/kopce_dodaj_vraboten"
+                android:layout_toRightOf="@+id/kopce_edit"/>
+
+        </RelativeLayout>
+
+</RelativeLayout>
