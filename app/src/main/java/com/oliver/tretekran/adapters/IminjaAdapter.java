@@ -72,9 +72,7 @@ public class IminjaAdapter extends RecyclerView.Adapter<IminjaAdapter.ViewHolder
 //            }
 //        });
 //
-//        public void RemoveVraboteni;{
-//            peopleList.remove(peopleList.get(position));
-//        }
+//
     }
 
     @Override

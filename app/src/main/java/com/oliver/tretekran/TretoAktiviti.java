@@ -3,6 +3,9 @@ package com.oliver.tretekran;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.Uri;
+import android.os.Environment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,11 +18,14 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.oliver.tretekran.Listeners.OnRow;
 import com.oliver.tretekran.adapters.IminjaAdapter;
 import com.oliver.tretekran.klasi.Vraboteni;
 import com.oliver.tretekran.klasi.VraboteniModel;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -61,7 +67,9 @@ public class TretoAktiviti extends AppCompatActivity {
         setContentView(R.layout.activity_treto_aktiviti);
         context = this;
         ButterKnife.bind(this);
-        createVraboteni();
+        LoadVraboteni();
+//        createVraboteni();
+
         buildRecyclerView();
     }
 
@@ -107,13 +115,26 @@ public class TretoAktiviti extends AppCompatActivity {
     @OnClick(R.id.kopce_dodaj_vraboten)
     public void onKlik5(View view){
         popUpEditText();
+//        SaveData();
         adapter.notifyDataSetChanged();
+//
     }
 
     @OnClick(R.id.kopce_izbrisi_vraboten)
     public void onKlik6(View view){
         adapter.clear();
         adapter.notifyDataSetChanged();
+    }
+
+    @OnClick (R.id.kopce_prati)
+    public void Onklik7(View view){
+        Uri uri = Uri.parse("file://"+ Environment.getExternalStorageDirectory()+"/test.png");
+        Intent i = new Intent(Intent.ACTION_SEND);
+        i.putExtra("address","1234567890");
+        i.putExtra("sms_body","This is the text mms");
+        i.putExtra(Intent.EXTRA_STREAM,"file:/"+uri);
+        i.setType("image/png");
+        startActivity(i);
     }
     public void popUpEditText() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -128,6 +149,7 @@ public class TretoAktiviti extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 model2.add(new Vraboteni(input.getText().toString()));
+                SaveData();
                 adapter.notifyDataSetChanged();
 
             }
@@ -139,6 +161,27 @@ public class TretoAktiviti extends AppCompatActivity {
             }
         });
         builder.show();
+
+    }
+
+    public void SaveData(){
+        SharedPreferences sharedPreferences = getSharedPreferences("preff",MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(model2);
+        editor.putString("vraboteni",json);
+        editor.apply();
+    }
+    public void LoadVraboteni(){
+        SharedPreferences sharedPreferences = getSharedPreferences("preff",MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("vraboteni",null);
+        Type type = new TypeToken<ArrayList<Vraboteni>>() {}.getType();
+        model2 = gson.fromJson(json,type);
+
+
+
+
 
     }
 }
