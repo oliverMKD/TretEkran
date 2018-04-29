@@ -170,7 +170,7 @@ public class PrethodnoActivity extends AppCompatActivity {
     @OnClick(R.id.save)
     public void saveUserDetails(){
 
-
+//        broevi = new ArrayList<>();
         broevi.add(new User(Integer.parseInt(broj.getText().toString())));
         Savedata();
         adapterbroevi.notifyDataSetChanged();
@@ -182,6 +182,7 @@ public class PrethodnoActivity extends AppCompatActivity {
     public void shownumber(){
 
         Loaddata();
+        adapterbroevi.notifyDataSetChanged();
 
 
 

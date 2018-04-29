@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 
+import com.oliver.tretekran.Listeners.OnRow;
 import com.oliver.tretekran.R;
 import com.oliver.tretekran.klasi.Slika;
 import com.squareup.picasso.Picasso;
@@ -20,10 +21,13 @@ import butterknife.ButterKnife;
 public class SlikiAdapter extends RecyclerView.Adapter<SlikiAdapter.ViewHolder> {
     public Context mcontext;
     public ArrayList<Slika> mSliki;
+    OnRow onRowClickListener;
+    Slika slika;
 
-    public SlikiAdapter(Context context, ArrayList<Slika> sliki) {
+    public SlikiAdapter(Context context, ArrayList<Slika> sliki, OnRow _onRowClick) {
         this.mcontext = context;
         this.mSliki = sliki;
+        this.onRowClickListener = _onRowClick;
     }
 
     @Override
@@ -39,6 +43,12 @@ public class SlikiAdapter extends RecyclerView.Adapter<SlikiAdapter.ViewHolder> 
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final Slika foto = mSliki.get(position);
         Picasso.with(mcontext).load(foto.getSlika()).fit().centerInside().into(holder.slika);
+        holder.slika.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onRowClickListener.onSlikaClick(slika,position);
+            }
+        });
 
 
     }

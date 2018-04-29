@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -23,6 +24,7 @@ import com.oliver.tretekran.Listeners.OnRow;
 import com.oliver.tretekran.adapters.IminjaAdapter;
 import com.oliver.tretekran.adapters.SlikiAdapter;
 import com.oliver.tretekran.klasi.Slika;
+import com.oliver.tretekran.klasi.User;
 import com.oliver.tretekran.klasi.Vraboteni;
 import com.oliver.tretekran.klasi.VraboteniModel;
 
@@ -64,6 +66,7 @@ public class TretoAktiviti extends AppCompatActivity {
     public boolean isChecked;
     public SlikiAdapter adapter2;
     public ArrayList<Slika> fotografii;
+    String aaa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +93,14 @@ public class TretoAktiviti extends AppCompatActivity {
                 @Override
                 public void onRowClick(Vraboteni vraboteni, int position) {
 
-                    tekst.setText(R.string.tekst_na_angliski+ "\n" +vraboteni.getName());
+
+                        tekst.setText(R.string.tekst_na_angliski + "\n" + vraboteni.name);
+
+}
+
+                @Override
+                public void onSlikaClick(Slika slika, int position) {
+
                 }
             });
             rv2.setLayoutManager(new LinearLayoutManager(this));
@@ -99,16 +109,29 @@ public class TretoAktiviti extends AppCompatActivity {
 
     public void createSliki() {
         fotografii = new ArrayList<>();
-        fotografii.add(new Slika(R.drawable.cetri,true));
-        fotografii.add(new Slika(R.drawable.pet,true));
-        fotografii.add(new Slika(R.drawable.prvo,true));
-        fotografii.add(new Slika(R.drawable.vtoro,false));
-        fotografii.add(new Slika(R.drawable.treto,false));
+//        fotografii.add(new Slika(R.drawable.cetri,true));
+//        fotografii.add(new Slika(R.drawable.pet,true));
+//        fotografii.add(new Slika(R.drawable.prvo,true));
+//        fotografii.add(new Slika(R.drawable.vtoro,false));
+//        fotografii.add(new Slika(R.drawable.treto,false));
+        fotografii.add(new Slika(R.drawable.index,true));
+
     }
 
         public void buildSlikiRecycler(){
             rv.setHasFixedSize(true);
-            adapter2 = new SlikiAdapter(this,fotografii);
+            adapter2 = new SlikiAdapter(this, fotografii, new OnRow() {
+                @Override
+                public void onRowClick(Vraboteni vraboteni, int position) {
+
+                }
+
+                @Override
+                public void onSlikaClick(Slika slika, int position) {
+                    ZacuvajSliki();
+                    Toast.makeText(context, "dodadeno vo izbrani sliki", Toast.LENGTH_LONG).show();
+                }
+            });
             LinearLayoutManager layoutManager
                     = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
             rv.setLayoutManager(layoutManager);
@@ -152,13 +175,27 @@ public class TretoAktiviti extends AppCompatActivity {
 
     @OnClick (R.id.kopce_prati)
     public void Onklik7(View view){
-        Uri uri = Uri.parse("file://"+ Environment.getExternalStorageDirectory()+"/test.png");
-        Intent i = new Intent(Intent.ACTION_SEND);
-        i.putExtra("address","1234567890");
-        i.putExtra("sms_body","This is the text mms");
-        i.putExtra(Intent.EXTRA_STREAM,"file:/"+uri);
-        i.setType("image/png");
-        startActivity(i);
+        android.content.SharedPreferences sharedPreferences2 = getSharedPreferences("preff", MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences2.getString("broevi",null);
+        android.content.SharedPreferences sharedPreferences3 = getSharedPreferences("preff", MODE_PRIVATE);
+        Gson gson1 = new Gson();
+        String json1 = sharedPreferences3.getString("sliki",null);
+//        Uri uri = Uri.parse(json1);
+//        Intent i = new Intent(Intent.ACTION_SEND);
+//        i.putExtra("address",json);
+//        i.putExtra("sms_body","This is the text mms");
+//        i.putExtra(Intent.EXTRA_STREAM,uri);
+//        i.setType("image/png/jpg");
+//        startActivity(i);
+
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.putExtra("sms_body", "Hi how are you");
+        intent.putExtra("address",json);
+        Uri uri = Uri.parse(json1);
+        intent.putExtra(Intent.EXTRA_STREAM,uri );
+        intent.setType("image/png");
+        startActivity(Intent.createChooser(intent,"Send"));
     }
     public void popUpEditText() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -203,9 +240,13 @@ public class TretoAktiviti extends AppCompatActivity {
         Type type = new TypeToken<ArrayList<Vraboteni>>() {}.getType();
         model2 = gson.fromJson(json,type);
 
-
-
-
-
+    }
+    public void ZacuvajSliki(){
+        SharedPreferences sharedPreferences = getSharedPreferences("preff",MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(fotografii);
+        editor.putString("sliki",json);
+        editor.apply();
     }
 }
