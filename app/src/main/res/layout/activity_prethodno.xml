@@ -1,9 +1,165 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".PrethodnoActivity">
+    <LinearLayout
+        android:id="@+id/linear"
+        android:layout_width="300dp"
+        android:layout_height="500dp">
 
-</android.support.constraint.ConstraintLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerriew_broevi"
+            android:scrollbars="vertical"
+            android:scrollbarSize="3dp"
+            android:scrollbarStyle="outsideOverlay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v7.widget.RecyclerView>
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/broj"
+        android:layout_width="300dp"
+        android:layout_height="150dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"/>
+
+    <Button
+        android:id="@+id/broj0"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_below="@+id/broj"
+        android:layout_marginLeft="380dp"
+        android:layout_marginTop="50dp"
+        android:text="0"/>
+    <Button
+        android:id="@+id/broj1"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_below="@+id/broj"
+        android:layout_toRightOf="@+id/broj0"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="50dp"
+        android:text="1"/>
+    <Button
+        android:id="@+id/broj2"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_below="@+id/broj"
+        android:layout_toRightOf="@+id/broj1"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="50dp"
+        android:text="2"/>
+    <Button
+        android:id="@+id/broj3"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_below="@+id/broj"
+        android:layout_toRightOf="@+id/broj2"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="50dp"
+        android:text="3"/>
+    <Button
+        android:id="@+id/broj4"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_below="@+id/broj"
+        android:layout_toRightOf="@+id/broj3"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="50dp"
+        android:text="4"/>
+
+    <Button
+        android:id="@+id/broj5"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_below="@+id/broj0"
+        android:layout_marginLeft="380dp"
+        android:layout_marginTop="30dp"
+        android:text="5"/>
+    <Button
+        android:id="@+id/broj6"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_below="@+id/broj1"
+        android:layout_toRightOf="@id/broj5"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
+        android:text="6"/>
+    <Button
+        android:id="@+id/broj7"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_below="@+id/broj2"
+        android:layout_toRightOf="@id/broj6"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
+        android:text="7"/>
+    <Button
+        android:id="@+id/broj8"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_below="@+id/broj3"
+        android:layout_toRightOf="@id/broj7"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
+        android:text="8"/>
+    <Button
+        android:id="@+id/broj9"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_below="@+id/broj4"
+        android:layout_toRightOf="@id/broj8"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
+        android:text="9"/>
+
+    <Button
+        android:id="@+id/back"
+        android:layout_width="100dp"
+        android:layout_height="80dp"
+        android:layout_below="@id/broj5"
+        android:layout_marginTop="90dp"
+
+        android:text="back"/>
+    <Button
+        android:id="@+id/next"
+        android:layout_width="100dp"
+        android:layout_height="80dp"
+        android:layout_below="@id/broj9"
+        android:layout_marginTop="90dp"
+        android:layout_alignParentRight="true"
+        android:text="next"/>
+
+    <Button
+        android:id="@+id/save"
+        android:layout_width="110dp"
+        android:layout_height="80dp"
+        android:layout_toRightOf="@id/broj"
+        android:layout_marginLeft="40dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"
+        android:text="save" />
+
+    <Button
+        android:id="@+id/backspace"
+        android:layout_width="110dp"
+        android:layout_height="80dp"
+        android:layout_toRightOf="@id/broj"
+        android:layout_marginLeft="40dp"
+        android:layout_below="@id/save"
+        android:text="backspace"/>
+
+    <Button
+        android:layout_toRightOf="@id/save"
+        android:id="@+id/l"
+        android:layout_width="100dp"
+        android:layout_height="100dp"/>
+
+</RelativeLayout>
