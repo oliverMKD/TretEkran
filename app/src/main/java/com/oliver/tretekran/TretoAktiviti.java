@@ -9,7 +9,6 @@ import android.os.Environment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -22,6 +21,8 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.oliver.tretekran.Listeners.OnRow;
 import com.oliver.tretekran.adapters.IminjaAdapter;
+import com.oliver.tretekran.adapters.SlikiAdapter;
+import com.oliver.tretekran.klasi.Slika;
 import com.oliver.tretekran.klasi.Vraboteni;
 import com.oliver.tretekran.klasi.VraboteniModel;
 
@@ -60,6 +61,9 @@ public class TretoAktiviti extends AppCompatActivity {
     VraboteniModel model;
     public ArrayList<Vraboteni> model2;
     Vraboteni vraboteni;
+    public boolean isChecked;
+    public SlikiAdapter adapter2;
+    public ArrayList<Slika> fotografii;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +73,8 @@ public class TretoAktiviti extends AppCompatActivity {
         ButterKnife.bind(this);
         LoadVraboteni();
 //        createVraboteni();
-
+        createSliki();
+        buildSlikiRecycler();
         buildRecyclerView();
     }
 
@@ -84,11 +89,30 @@ public class TretoAktiviti extends AppCompatActivity {
             adapter = new IminjaAdapter(this,model2, new OnRow() {
                 @Override
                 public void onRowClick(Vraboteni vraboteni, int position) {
-                    tekst.setText(R.string.tekst_na_angliski+ "\n" +vraboteni.getName()+position);
+
+                    tekst.setText(R.string.tekst_na_angliski+ "\n" +vraboteni.getName());
                 }
             });
             rv2.setLayoutManager(new LinearLayoutManager(this));
             rv2.setAdapter(adapter);
+        }
+
+    public void createSliki() {
+        fotografii = new ArrayList<>();
+        fotografii.add(new Slika(R.drawable.cetri,true));
+        fotografii.add(new Slika(R.drawable.pet,true));
+        fotografii.add(new Slika(R.drawable.prvo,true));
+        fotografii.add(new Slika(R.drawable.vtoro,false));
+        fotografii.add(new Slika(R.drawable.treto,false));
+    }
+
+        public void buildSlikiRecycler(){
+            rv.setHasFixedSize(true);
+            adapter2 = new SlikiAdapter(this,fotografii);
+            LinearLayoutManager layoutManager
+                    = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+            rv.setLayoutManager(layoutManager);
+            rv.setAdapter(adapter2);
         }
 
 
